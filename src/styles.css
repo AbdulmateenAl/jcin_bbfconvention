@@ -48,41 +48,41 @@
 :root {
   --radius: 0.875rem;
 
-  /* White-based premium theme with Blue / Purple / Wine accents */
-  --background: oklch(0.995 0.003 270);
-  --foreground: oklch(0.18 0.02 270);
+  /* Palette: #FFFFFF white · #231F20 charcoal · #0077C8 blue · #F4B400 gold · #6CB33F green */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.22 0.005 30); /* #231F20 charcoal */
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.02 270);
+  --card-foreground: oklch(0.22 0.005 30);
 
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.02 270);
+  --popover-foreground: oklch(0.22 0.005 30);
 
-  /* Primary = deep royal blue */
-  --primary: oklch(0.42 0.16 265);
-  --primary-foreground: oklch(0.99 0 0);
+  /* Primary = signature blue #0077C8 (leadership, trust) */
+  --primary: oklch(0.55 0.16 240);
+  --primary-foreground: oklch(1 0 0);
 
-  /* Secondary = soft neutral */
-  --secondary: oklch(0.96 0.01 270);
-  --secondary-foreground: oklch(0.22 0.03 270);
+  /* Secondary = soft warm neutral */
+  --secondary: oklch(0.965 0.005 80);
+  --secondary-foreground: oklch(0.22 0.005 30);
 
-  --muted: oklch(0.965 0.008 270);
-  --muted-foreground: oklch(0.5 0.02 270);
+  --muted: oklch(0.97 0.004 80);
+  --muted-foreground: oklch(0.48 0.01 30);
 
-  /* Accent = rich purple */
-  --accent: oklch(0.46 0.18 305);
-  --accent-foreground: oklch(0.99 0 0);
+  /* Accent = gold #F4B400 (highlight, energy) */
+  --accent: oklch(0.80 0.17 85);
+  --accent-foreground: oklch(0.22 0.005 30);
 
-  /* Wine = burgundy */
-  --wine: oklch(0.40 0.14 18);
-  --wine-foreground: oklch(0.99 0 0);
+  /* "Wine" slot repurposed as green #6CB33F (growth, action) */
+  --wine: oklch(0.71 0.18 135);
+  --wine-foreground: oklch(0.22 0.005 30);
 
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(1 0 0);
 
-  --border: oklch(0.92 0.01 270);
-  --input: oklch(0.92 0.01 270);
-  --ring: oklch(0.46 0.18 305);
+  --border: oklch(0.92 0.005 80);
+  --input: oklch(0.92 0.005 80);
+  --ring: oklch(0.55 0.16 240);
 }
 
 .dark {
