@@ -39,10 +39,10 @@
   --font-body: "Montserrat", "Poppins", sans-serif;
 
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--accent));
-  --gradient-rich: linear-gradient(135deg, var(--wine) 0%, var(--accent) 50%, var(--primary) 100%);
-  --gradient-soft: linear-gradient(180deg, color-mix(in oklab, var(--background) 100%, transparent), color-mix(in oklab, var(--accent) 6%, var(--background)));
-  --shadow-elegant: 0 30px 60px -20px color-mix(in oklab, var(--primary) 25%, transparent);
-  --shadow-soft: 0 12px 40px -16px color-mix(in oklab, var(--wine) 18%, transparent);
+  --gradient-rich: linear-gradient(135deg, var(--primary) 0%, var(--accent) 55%, var(--wine) 100%);
+  --gradient-soft: linear-gradient(180deg, var(--background), color-mix(in oklab, var(--accent) 8%, var(--background)));
+  --shadow-elegant: 0 30px 60px -20px color-mix(in oklab, var(--primary) 30%, transparent);
+  --shadow-soft: 0 12px 40px -16px color-mix(in oklab, var(--primary) 18%, transparent);
 }
 
 :root {
