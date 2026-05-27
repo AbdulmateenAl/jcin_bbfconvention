@@ -9,9 +9,9 @@ export const CONVENTION = {
   localTheme: "TIME",
   nationalTheme: "Amplify",
   // Placeholder date — confirm with chairpersons
-  startDate: "2025-12-12T18:00:00+01:00",
-  endDate: "2025-12-14T20:00:00+01:00",
-  dateLabel: "December 12 – 14, 2025",
+  startDate: "2026-06-21T18:00:00+01:00",
+  endDate: "2026-06-25T20:00:00+01:00",
+  dateLabel: "June 21 – 25, 2026",
   venue: "Banquet Hall, University of Ilorin",
   city: "Ilorin, Kwara State",
   payment: {
@@ -23,13 +23,13 @@ export const CONVENTION = {
   whatsappGroupUrl: "https://chat.whatsapp.com/PLACEHOLDER",
   whatsappSupport: "2348000000000", // wa.me number
   chairpersons: [
-    { name: "Chairperson Name", role: "Convention Chair", phone: "+234 800 000 0000", email: "chair@jciunilorin.org" },
-    { name: "Co-chair Name", role: "Co-Chair", phone: "+234 800 000 0001", email: "cochair@jciunilorin.org" },
+    { name: "Obi", role: "Chairperson", phone: "+234 903 722 0596", email: "chair@jciunilorin.org" },
+    { name: "Gege", role: "Chairperson", phone: "+234 907 543 8956", email: "cochair@jciunilorin.org" },
   ],
   socials: {
-    instagram: "#",
-    twitter: "#",
-    facebook: "#",
-    linkedin: "#",
+    instagram: "www.instagram.com/jcin_unilorin",
+    twitter: "x.com/jcin_unilorin",
+    facebook: "www.facebook.com/share/1EYj2t72aR",
+    linkedin: "www.linkedin.com/company/junior-chamber-international-university-of-ilorin",
   },
 };

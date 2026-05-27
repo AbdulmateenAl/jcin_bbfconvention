@@ -1,6 +1,11 @@
 import { CONVENTION } from "@/lib/convention";
 import { Mail, Phone, Instagram, Twitter, Facebook, Linkedin } from "lucide-react";
 
+function normalizeExternalUrl(url: string) {
+  if (!url) return url;
+  return url.startsWith("http://") || url.startsWith("https://") ? url : `https://${url}`;
+}
+
 export function Footer() {
   return (
     <footer id="contact" className="relative border-t border-border bg-card">
@@ -20,7 +25,9 @@ export function Footer() {
               ].map(([Icon, href, label]: any) => (
                 <a
                   key={label}
-                  href={href}
+                  href={normalizeExternalUrl(href)}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   aria-label={label}
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-accent/10 hover:border-accent transition"
                 >

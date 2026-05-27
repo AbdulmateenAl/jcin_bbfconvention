@@ -1,4 +1,3 @@
-import heroBg from "@/assets/hero-bg.jpg";
 import { CONVENTION } from "@/lib/convention";
 import { Countdown } from "./Countdown";
 import { Button } from "@/components/ui/button";
@@ -6,14 +5,8 @@ import { Calendar, MapPin, ArrowDown } from "lucide-react";
 
 export function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen w-full overflow-hidden">
-      <img
-        src={heroBg}
-        alt=""
-        width={1920}
-        height={1080}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+    <section id="hero" className="relative min-h-screen w-full overflow-hidden bg-slate-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.18),transparent_28%),linear-gradient(180deg,rgba(15,23,42,0.96),rgba(15,23,42,0.65))]" />
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-32 pb-24 md:pt-40 md:pb-32">
