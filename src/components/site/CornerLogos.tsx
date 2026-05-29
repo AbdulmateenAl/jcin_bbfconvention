@@ -1,5 +1,8 @@
+import jciLogo from "@/assets/logos/jci.png";
+import amplifyLogo from "@/assets/logos/amplify.jpg";
+
 // Brand logo placeholders, locked to the 4 corners of the viewport.
-// Replace text labels with actual <img> tags once logo assets are uploaded.
+// Top logos use images from `src/assets/logos`.
 
 function Badge({ label }: { label: string }) {
   return (
@@ -12,10 +15,12 @@ function Badge({ label }: { label: string }) {
 export function CornerLogos() {
   return (
     <div className="pointer-events-none fixed inset-0 z-40 hidden md:block">
-      <div className="absolute top-4 left-4"><Badge label="JCIN UNILORIN" /></div>
-      <div className="absolute top-4 right-4"><Badge label="Amplify" /></div>
-      <div className="absolute bottom-4 left-4"><Badge label="Spark" /></div>
-      <div className="absolute bottom-4 right-4"><Badge label="TIME" /></div>
+      <div className="absolute top-4 left-4">
+        <img src={jciLogo} alt="JCIN UNILORIN" className="pointer-events-auto h-28 w-auto" />
+      </div>
+      <div className="absolute top-4 right-4">
+        <img src={amplifyLogo} alt="Amplify" className="pointer-events-auto h-20 w-auto" />
+      </div>
     </div>
   );
 }

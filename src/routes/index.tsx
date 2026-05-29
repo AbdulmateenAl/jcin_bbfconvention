@@ -15,7 +15,7 @@ import { CONVENTION } from "@/lib/convention";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: `${CONVENTION.title}: ${CONVENTION.subtitle} — ${CONVENTION.shortName}` },
+      { title: `${CONVENTION.title}` },
       {
         name: "description",
         content: `${CONVENTION.shortName}. ${CONVENTION.dateLabel} at ${CONVENTION.venue}. Register now and join the WhatsApp group.`,

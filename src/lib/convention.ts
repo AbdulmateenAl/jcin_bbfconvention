@@ -4,7 +4,7 @@
 export const CONVENTION = {
   org: "JCI Unilorin",
   shortName: "JCIN UNILORIN 2025 Convention & Investiture",
-  title: "Timeless Impact",
+  title: "BBFConvention",
   subtitle: "Amplifying Digital Innovation",
   localTheme: "TIME",
   nationalTheme: "Amplify",

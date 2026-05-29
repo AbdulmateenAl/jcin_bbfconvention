@@ -33,7 +33,7 @@ CREATE TABLE public.registrations (
   email TEXT NOT NULL,
   phone TEXT NOT NULL,
   family_group TEXT,
-  is_unilorin_member BOOLEAN NOT NULL DEFAULT false,
+  jci_member BOOLEAN NOT NULL DEFAULT false,
   purchasing_aso_oke BOOLEAN NOT NULL DEFAULT false,
   attending_after_party BOOLEAN NOT NULL DEFAULT false,
   attending_picnic BOOLEAN NOT NULL DEFAULT false,

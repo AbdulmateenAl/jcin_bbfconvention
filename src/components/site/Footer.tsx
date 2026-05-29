@@ -1,5 +1,7 @@
 import { CONVENTION } from "@/lib/convention";
 import { Mail, Phone, Instagram, Twitter, Facebook, Linkedin } from "lucide-react";
+import sparkLogo from "@/assets/logos/spark.png";
+import timeLogo from "@/assets/logos/time.jpeg";
 
 function normalizeExternalUrl(url: string) {
   if (!url) return url;
@@ -61,6 +63,10 @@ export function Footer() {
         <div className="mt-12 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
           <div>© {new Date().getFullYear()} {CONVENTION.org}. All rights reserved.</div>
           <div>Built for {CONVENTION.title} · {CONVENTION.subtitle}</div>
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+          <img src={sparkLogo} alt="Spark" className="h-12 w-auto" />
+          <img src={timeLogo} alt="TIME" className="h-12 w-auto" />
         </div>
       </div>
     </footer>

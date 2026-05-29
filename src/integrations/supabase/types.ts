@@ -24,7 +24,7 @@ export type Database = {
           family_group: string | null
           full_name: string
           id: string
-          is_unilorin_member: boolean
+          jci_member: boolean
           phone: string
           purchasing_aso_oke: boolean
           receipt_path: string
@@ -40,7 +40,7 @@ export type Database = {
           family_group?: string | null
           full_name: string
           id?: string
-          is_unilorin_member?: boolean
+          jci_member?: boolean
           phone: string
           purchasing_aso_oke?: boolean
           receipt_path: string
@@ -56,7 +56,7 @@ export type Database = {
           family_group?: string | null
           full_name?: string
           id?: string
-          is_unilorin_member?: boolean
+          jci_member?: boolean
           phone?: string
           purchasing_aso_oke?: boolean
           receipt_path?: string

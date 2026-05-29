@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import jciTabIcon from "@/assets/logos/jci_tab_icon.png";
 
 function NotFoundComponent() {
   return (
@@ -72,20 +73,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "BBFConvention" },
+      { name: "description", content: "JCI Unilorin 2026 Event" },
+      { name: "author", content: "JCI Unilorin" },
+      { property: "og:title", content: "BBFConvention" },
+      { property: "og:description", content: "JCI Unilorin 2026 Event" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "icon",
+        href: jciTabIcon,
+      }
     ],
   }),
   shellComponent: RootShell,

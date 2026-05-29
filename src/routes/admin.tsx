@@ -82,7 +82,7 @@ function Dashboard() {
   const exportCSV = () => {
     const rows = listQ.data?.registrations ?? [];
     const headers = [
-      "id","full_name","email","phone","family_group","is_unilorin_member",
+      "id","full_name","email","phone","family_group","jci_member",
       "purchasing_aso_oke","attending_after_party","attending_picnic",
       "verification_status","created_at","admin_notes","receipt_path",
     ];
@@ -190,7 +190,7 @@ function Dashboard() {
                       <td className="p-4">
                         <div className="font-medium">{r.full_name}</div>
                         <div className="text-xs text-muted-foreground">
-                          {r.family_group ?? "—"} · {r.is_unilorin_member ? "Member" : "Non-member"}
+                          {r.family_group ?? "—"} · {r.jci_member ? "Member" : "Non-member"}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
                           {new Date(r.created_at).toLocaleString()}
