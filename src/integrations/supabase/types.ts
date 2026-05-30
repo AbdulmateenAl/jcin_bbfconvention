@@ -22,11 +22,11 @@ export type Database = {
           created_at: string
           email: string
           family_group: string | null
-          food_option: Database["public"]["Enums"]["food_option"]
+          food_option: string | null
           full_name: string
           id: string
+          is_unilorin_member: boolean
           jci_member: boolean
-          jci_unilorin_member: boolean
           phone: string
           purchasing_aso_oke: boolean
           receipt_path: string
@@ -40,11 +40,11 @@ export type Database = {
           created_at?: string
           email: string
           family_group?: string | null
-          food_option?: Database["public"]["Enums"]["food_option"]
+          food_option?: string | null
           full_name: string
           id?: string
+          is_unilorin_member?: boolean
           jci_member?: boolean
-          jci_unilorin_member?: boolean
           phone: string
           purchasing_aso_oke?: boolean
           receipt_path: string
@@ -58,11 +58,11 @@ export type Database = {
           created_at?: string
           email?: string
           family_group?: string | null
-          food_option?: Database["public"]["Enums"]["food_option"]
+          food_option?: string | null
           full_name?: string
           id?: string
+          is_unilorin_member?: boolean
           jci_member?: boolean
-          jci_unilorin_member?: boolean
           phone?: string
           purchasing_aso_oke?: boolean
           receipt_path?: string
@@ -108,7 +108,6 @@ export type Database = {
     Enums: {
       app_role: "admin" | "user"
       verification_status: "pending" | "approved" | "flagged"
-      food_option: "amala_and_ewedu" | "semo_and_egwusi" | "ofada_rice"
     }
     CompositeTypes: {
       [_ in never]: never
