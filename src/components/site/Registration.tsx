@@ -10,17 +10,28 @@ import { toast } from "sonner";
 import { CONVENTION } from "@/lib/convention";
 import { Building2, Copy, Upload, CheckCircle2, ExternalLink } from "lucide-react";
 
+type FoodOption = "amala_and_ewedu" | "semo_and_egwusi" | "ofada_rice";
+
+const FOOD_OPTIONS: Array<{ value: FoodOption; label: string }> = [
+  { value: "amala_and_ewedu", label: "Amala and ewedu" },
+  { value: "semo_and_egwusi", label: "Semo and Egwusi" },
+  { value: "ofada_rice", label: "Ofada rice" },
+];
+
 const schema = z.object({
   full_name: z.string().trim().min(2, "Enter your full name").max(120),
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().min(7, "Enter a valid phone").max(32),
   family_group: z.string().trim().max(120).optional().or(z.literal("")),
+  food_option: z.enum(["amala_and_ewedu", "semo_and_egwusi", "ofada_rice"], "Choose a food option"),
 });
 
 const ACCEPTED = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
 const MAX_BYTES = 5 * 1024 * 1024;
 
+type ScreenAnswer = "yes" | "no";
 type RegistrationFormType = "member" | "non-member";
+type RegistrationStep = "screening1" | "screening2" | "details";
 
 const FORM_CONFIG: Record<RegistrationFormType, { title: string; subtitle: string }> = {
   member: {
@@ -33,35 +44,44 @@ const FORM_CONFIG: Record<RegistrationFormType, { title: string; subtitle: strin
   },
 };
 
-const SCREENING_OPTIONS: Array<{ value: RegistrationFormType; label: string }> = [
-  { value: "member", label: "Yes" },
-  { value: "non-member", label: "No" },
+const SCREENING_OPTIONS: Array<{ value: ScreenAnswer; label: string }> = [
+  { value: "yes", label: "Yes" },
+  { value: "no", label: "No" },
 ];
 
 export function Registration() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [file, setFile] = useState<File | null>(null);
-  const [screening, setScreening] = useState<RegistrationFormType | null>(null);
-  const [step, setStep] = useState<"screening" | "details">("screening");
+  const [screening1, setScreening1] = useState<ScreenAnswer | null>(null);
+  const [screening2, setScreening2] = useState<ScreenAnswer | null>(null);
+  const [step, setStep] = useState<RegistrationStep>("screening1");
   const [form, setForm] = useState({
     full_name: "",
     email: "",
     phone: "",
     family_group: "",
+    food_option: "",
     jci_member: false,
+    jci_unilorin_member: false,
     purchasing_aso_oke: false,
     attending_after_party: true,
     attending_picnic: true,
   });
 
-  const selectedConfig = screening ? FORM_CONFIG[screening] : null;
+  const selectedConfig = FORM_CONFIG[form.jci_member ? "member" : "non-member"];
   const screeningPanelRef = useRef<HTMLDivElement>(null);
+  const screening2PanelRef = useRef<HTMLDivElement>(null);
   const detailsPanelRef = useRef<HTMLDivElement>(null);
   const [panelHeight, setPanelHeight] = useState<string>("auto");
 
   const updatePanelHeight = () => {
-    const activePanel = step === "screening" ? screeningPanelRef.current : detailsPanelRef.current;
+    const activePanel =
+      step === "screening1"
+        ? screeningPanelRef.current
+        : step === "screening2"
+        ? screening2PanelRef.current
+        : detailsPanelRef.current;
     if (activePanel) {
       setPanelHeight(`${activePanel.offsetHeight}px`);
     }
@@ -69,12 +89,21 @@ export function Registration() {
 
   useEffect(() => {
     updatePanelHeight();
-  }, [step, screening, form.full_name, form.email, form.phone, form.family_group, form.purchasing_aso_oke, form.attending_after_party, form.attending_picnic, file]);
+  }, [step, screening1, screening2, form.full_name, form.email, form.phone, form.family_group, form.food_option, form.purchasing_aso_oke, form.attending_after_party, form.attending_picnic, file]);
 
   const handleNext = () => {
-    if (!screening) return;
-    setForm((prev) => ({ ...prev, jci_member: screening === "member" }));
-    setStep("details");
+    if (step === "screening1") {
+      if (!screening1) return;
+      setForm((prev) => ({ ...prev, jci_member: screening1 === "yes" }));
+      setStep("screening2");
+      return;
+    }
+
+    if (step === "screening2") {
+      if (!screening2) return;
+      setForm((prev) => ({ ...prev, jci_unilorin_member: screening2 === "yes" }));
+      setStep("details");
+    }
   };
 
   const copy = async (v: string) => {
@@ -119,7 +148,9 @@ export function Registration() {
         email: parsed.data.email,
         phone: parsed.data.phone,
         family_group: parsed.data.family_group || null,
+        food_option: parsed.data.food_option,
         jci_member: form.jci_member,
+        jci_unilorin_member: form.jci_unilorin_member,
         purchasing_aso_oke: form.purchasing_aso_oke,
         attending_after_party: form.attending_after_party,
         attending_picnic: form.attending_picnic,
@@ -130,7 +161,9 @@ export function Registration() {
       setSuccess(true);
     } catch (err) {
       console.error(err);
-      toast.error("Could not submit. Please try again.");
+      // Surface backend error message when available to aid debugging
+      const message = (err as any)?.message ?? (err as any)?.error?.message ?? "Could not submit. Please try again.";
+      toast.error(message);
     } finally {
       setSubmitting(false);
     }
@@ -181,7 +214,6 @@ export function Registration() {
                 ["Bank", CONVENTION.payment.bankName],
                 ["Account name", CONVENTION.payment.accountName],
                 ["Account number", CONVENTION.payment.accountNumber],
-                ["Amount", CONVENTION.payment.amount],
               ].map(([k, v]) => (
                 <div key={k} className="flex items-start justify-between gap-3 border-b border-border pb-3 last:border-0">
                   <div>
@@ -199,6 +231,18 @@ export function Registration() {
                 </div>
               ))}
             </dl>
+            
+            <div className="mt-6 pt-6 border-t border-border">
+              <h4 className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-4">Pricing</h4>
+              <div className="space-y-3">
+                {CONVENTION.payment.pricing.map(({ label, amount }) => (
+                  <div key={label} className="flex items-center justify-between p-3 rounded-lg bg-accent/5">
+                    <span className="text-sm font-medium">{label}</span>
+                    <span className="font-semibold text-accent">{amount}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </aside>
 
           <div
@@ -206,22 +250,29 @@ export function Registration() {
             style={{ height: panelHeight, transition: "height 200ms ease-out" }}
           >
             <div
-              className="flex items-start w-[200%] transition-transform duration-500 ease-out"
-              style={{ transform: step === "screening" ? "translateX(0)" : "translateX(-50%)" }}
+              className="flex items-start w-[300%] transition-transform duration-500 ease-out"
+              style={{
+                transform:
+                  step === "screening1"
+                    ? "translateX(0)"
+                    : step === "screening2"
+                    ? "translateX(-33.3333%)"
+                    : "translateX(-66.6666%)",
+              }}
             >
-              <div ref={screeningPanelRef} className="flex-none w-1/2 p-7">
+              <div ref={screeningPanelRef} className="flex-none w-1/3 p-7">
                 <div className="space-y-6">
                   <div>
                     <div className="text-xs uppercase tracking-[0.22em] text-wine">Pre-screening</div>
-                    <h3 className="font-display text-4xl mt-3">Are you a JCI member?</h3>
+                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member?</h3>
                     <p className="mt-4 text-muted-foreground">
-                      Select your membership status and continue to the registration form tailored for you.
+                      Confirm your JCIN membership status before continuing to the next step.
                     </p>
                   </div>
 
                   <RadioGroup
-                    value={screening ?? undefined}
-                    onValueChange={(value) => setScreening(value as RegistrationFormType)}
+                    value={screening1 ?? undefined}
+                    onValueChange={(value) => setScreening1(value as ScreenAnswer)}
                     className="grid gap-3"
                   >
                     {SCREENING_OPTIONS.map((option) => (
@@ -240,7 +291,7 @@ export function Registration() {
                   <Button
                     type="button"
                     onClick={handleNext}
-                    disabled={!screening}
+                    disabled={!screening1}
                     size="lg"
                     className="self-start bg-gradient-rich text-primary-foreground hover:opacity-95 shadow-elegant"
                   >
@@ -249,7 +300,47 @@ export function Registration() {
                 </div>
               </div>
 
-              <div ref={detailsPanelRef} className="flex-none w-1/2 p-7">
+              <div ref={screening2PanelRef} className="flex-none w-1/3 p-7">
+                <div className="space-y-6">
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.22em] text-wine">Pre-screening</div>
+                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member at the University of Ilorin?</h3>
+                    <p className="mt-4 text-muted-foreground">
+                      Confirm whether you are affiliated with JCIN UNILORIN before completing registration.
+                    </p>
+                  </div>
+
+                  <RadioGroup
+                    value={screening2 ?? undefined}
+                    onValueChange={(value) => setScreening2(value as ScreenAnswer)}
+                    className="grid gap-3"
+                  >
+                    {SCREENING_OPTIONS.map((option) => (
+                      <label
+                        key={option.value}
+                        className={
+                          "flex items-center gap-4 rounded-3xl border border-border bg-background/80 px-4 py-4 hover:border-accent transition"
+                        }
+                      >
+                        <RadioGroupItem value={option.value} />
+                        <span className="text-base font-medium">{option.label}</span>
+                      </label>
+                    ))}
+                  </RadioGroup>
+
+                  <Button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={!screening2}
+                    size="lg"
+                    className="self-start bg-gradient-rich text-primary-foreground hover:opacity-95 shadow-elegant"
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+
+              <div ref={detailsPanelRef} className="flex-none w-1/3 p-7">
                 <form onSubmit={onSubmit} className="space-y-5">
                   <div>
                     <div className="text-xs uppercase tracking-[0.22em] text-wine">Registration</div>
@@ -314,6 +405,24 @@ export function Registration() {
                       label="Attending the Recovery Picnic"
                     />
                   </div>
+
+                  <Field id="food_option" label="Food option" required>
+                    <RadioGroup
+                      value={form.food_option || undefined}
+                      onValueChange={(value) => setForm({ ...form, food_option: value as FoodOption })}
+                      className="grid gap-3"
+                    >
+                      {FOOD_OPTIONS.map((option) => (
+                        <label
+                          key={option.value}
+                          className="flex items-center gap-4 rounded-3xl border border-border bg-background/80 px-4 py-4 hover:border-accent transition"
+                        >
+                          <RadioGroupItem value={option.value} />
+                          <span className="text-base font-medium">{option.label}</span>
+                        </label>
+                      ))}
+                    </RadioGroup>
+                  </Field>
 
                   <div>
                     <Label className="text-xs uppercase tracking-wider text-muted-foreground">Payment receipt</Label>

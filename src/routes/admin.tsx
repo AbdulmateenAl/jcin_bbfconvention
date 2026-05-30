@@ -14,6 +14,17 @@ import {
 } from "@/lib/admin.functions";
 import { CheckCircle2, Flag, Clock, FileImage, LogOut, Download } from "lucide-react";
 
+const FOOD_OPTION_LABELS: Record<string, string> = {
+  amala_and_ewedu: "Amala and ewedu",
+  semo_and_egwusi: "Semo and Egwusi",
+  ofada_rice: "Ofada rice",
+};
+
+function formatFoodOption(value: string | null | undefined) {
+  if (!value) return "—";
+  return FOOD_OPTION_LABELS[value] ?? value;
+}
+
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
@@ -82,7 +93,7 @@ function Dashboard() {
   const exportCSV = () => {
     const rows = listQ.data?.registrations ?? [];
     const headers = [
-      "id","full_name","email","phone","family_group","jci_member",
+      "id","full_name","email","phone","family_group","food_option","jci_member","jci_unilorin_member",
       "purchasing_aso_oke","attending_after_party","attending_picnic",
       "verification_status","created_at","admin_notes","receipt_path",
     ];
@@ -179,6 +190,7 @@ function Dashboard() {
                   <tr>
                     <th className="text-left p-4">Attendee</th>
                     <th className="text-left p-4">Contact</th>
+                    <th className="text-left p-4">Meal</th>
                     <th className="text-left p-4">Add-ons</th>
                     <th className="text-left p-4">Status</th>
                     <th className="text-right p-4">Actions</th>
@@ -190,7 +202,7 @@ function Dashboard() {
                       <td className="p-4">
                         <div className="font-medium">{r.full_name}</div>
                         <div className="text-xs text-muted-foreground">
-                          {r.family_group ?? "—"} · {r.jci_member ? "Member" : "Non-member"}
+                          {r.family_group ?? "—"} · {r.jci_member ? "Member" : "Non-member"} · {r.jci_unilorin_member ? "UNILORIN" : "Other"}
                         </div>
                         <div className="text-[11px] text-muted-foreground mt-1">
                           {new Date(r.created_at).toLocaleString()}
@@ -199,6 +211,9 @@ function Dashboard() {
                       <td className="p-4">
                         <div>{r.email}</div>
                         <div className="text-xs text-muted-foreground">{r.phone}</div>
+                      </td>
+                      <td className="p-4">
+                        {formatFoodOption(r.food_option)}
                       </td>
                       <td className="p-4 space-y-1 text-xs">
                         {r.purchasing_aso_oke && <Tag>Aso-Oke</Tag>}

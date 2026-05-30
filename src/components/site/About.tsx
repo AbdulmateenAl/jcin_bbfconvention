@@ -1,23 +1,21 @@
 export function About() {
   return (
-    <section id="about" className="relative py-24 md:py-32">
+    <section id="about" className="relative py-24 md:py-32 bg-[#6CB33F] text-white">
       <div className="mx-auto max-w-5xl px-6">
         <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
           <div>
-            <div className="text-xs uppercase tracking-[0.22em] text-accent">About</div>
-            <h2 className="font-display text-4xl md:text-5xl mt-3">The 2025 Convention</h2>
+            <div className="text-xs uppercase tracking-[0.22em] text-white/80">About</div>
+            <h2 className="font-display text-4xl md:text-5xl mt-3 text-white">The 2025 Convention</h2>
           </div>
-          <div className="space-y-5 text-base md:text-lg leading-relaxed text-muted-foreground">
+          <div className="space-y-5 text-base md:text-lg leading-relaxed text-white/90">
             <p>
-              The JCIN UNILORIN Annual Convention & Investiture is our highest celebration of
-              leadership — a gathering where members, alumni, partners, and friends converge to
-              honour service, install new leaders, and shape the year ahead.
+              The 2025 Convention & Investiture is designed to celebrate a remarkable year of achievements, 
+chart a new course for the organisation, and empower the next generation of leaders in an 
+increasingly digital world. 
             </p>
             <p>
-              In 2025, we converge under the theme <span className="text-foreground font-medium">Timeless Impact</span> —
-              a tribute to the legacies we inherit and the futures we are bold enough to build. From
-              the gratitude cocktail to the investiture and the recovery picnic, every moment is
-              designed for connection, recognition, and momentum.
+              The convention goes beyond celebration by creating an experience focused on leadership 
+transition, empowerment, innovation, networking, and sustainable impact. 
             </p>
           </div>
         </div>

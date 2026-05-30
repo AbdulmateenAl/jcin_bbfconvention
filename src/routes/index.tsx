@@ -38,8 +38,8 @@ function Index() {
         <Theme />
         <Gallery />
         <Programs />
-        <Timeline />
-        <Registration />
+        {/* <Timeline /> Will be added later once we have the finalized schedule and event flow */}
+        {/* <Registration /> Should be a page of its own */}
       </main>
       <Footer />
       <FloatingWhatsApp />

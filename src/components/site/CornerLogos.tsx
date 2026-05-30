@@ -1,5 +1,5 @@
 import jciLogo from "@/assets/logos/jci.png";
-import amplifyLogo from "@/assets/logos/amplify.jpg";
+import timeLogo from "@/assets/logos/time.png";
 
 // Brand logo placeholders, locked to the 4 corners of the viewport.
 // Top logos use images from `src/assets/logos`.
@@ -19,7 +19,7 @@ export function CornerLogos() {
         <img src={jciLogo} alt="JCIN UNILORIN" className="pointer-events-auto h-28 w-auto" />
       </div>
       <div className="absolute top-4 right-4">
-        <img src={amplifyLogo} alt="Amplify" className="pointer-events-auto h-20 w-auto" />
+        <img src={timeLogo} alt="TIME" className="pointer-events-auto h-16 w-auto" />
       </div>
     </div>
   );
