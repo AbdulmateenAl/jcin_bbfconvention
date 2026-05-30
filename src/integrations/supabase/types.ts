@@ -22,9 +22,11 @@ export type Database = {
           created_at: string
           email: string
           family_group: string | null
+          food_option: string | null
           full_name: string
           id: string
           is_unilorin_member: boolean
+          jci_member: boolean
           phone: string
           purchasing_aso_oke: boolean
           receipt_path: string
@@ -38,9 +40,11 @@ export type Database = {
           created_at?: string
           email: string
           family_group?: string | null
+          food_option?: string | null
           full_name: string
           id?: string
           is_unilorin_member?: boolean
+          jci_member?: boolean
           phone: string
           purchasing_aso_oke?: boolean
           receipt_path: string
@@ -54,9 +58,11 @@ export type Database = {
           created_at?: string
           email?: string
           family_group?: string | null
+          food_option?: string | null
           full_name?: string
           id?: string
           is_unilorin_member?: boolean
+          jci_member?: boolean
           phone?: string
           purchasing_aso_oke?: boolean
           receipt_path?: string
