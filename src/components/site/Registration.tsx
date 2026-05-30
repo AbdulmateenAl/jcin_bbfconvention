@@ -23,7 +23,7 @@ const schema = z.object({
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().min(7, "Enter a valid phone").max(32),
   family_group: z.string().trim().max(120).optional().or(z.literal("")),
-  food_option: z.enum(["amala_and_ewedu", "semo_and_egwusi", "ofada_rice"], "Choose a food option"),
+  food_option: z.enum(["amala_and_ewedu", "semo_and_egwusi", "ofada_rice"], { message: "Choose a food option" }),
 });
 
 const ACCEPTED = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
