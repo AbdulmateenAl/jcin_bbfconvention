@@ -150,7 +150,7 @@ export function Registration() {
         family_group: parsed.data.family_group || null,
         food_option: parsed.data.food_option,
         jci_member: form.jci_member,
-        jci_unilorin_member: form.jci_unilorin_member,
+        is_unilorin_member: form.jci_unilorin_member,
         purchasing_aso_oke: form.purchasing_aso_oke,
         attending_after_party: form.attending_after_party,
         attending_picnic: form.attending_picnic,
