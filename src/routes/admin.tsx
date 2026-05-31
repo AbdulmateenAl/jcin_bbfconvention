@@ -173,9 +173,9 @@ function Dashboard() {
       <main className="mx-auto max-w-7xl px-6 py-8 space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <Stat label="Total" value={stats.total} />
-          <Stat label="Pending" value={stats.pending} tone="muted" />
-          <Stat label="Approved" value={stats.approved} tone="accent" />
-          <Stat label="Flagged" value={stats.flagged} tone="wine" />
+          <Stat label="Pending" value={stats.pending} tone="accent" />
+          <Stat label="Approved" value={stats.approved} tone="wine" />
+          <Stat label="Flagged" value={stats.flagged} tone="destructive" />
         </div>
 
         <div className="rounded-3xl border border-border bg-card overflow-hidden shadow-soft">
@@ -233,7 +233,7 @@ function Dashboard() {
                           disabled={mut.isPending}
                           onClick={() => mut.mutate({ id: r.id, status: "approved" })}
                         >
-                          <CheckCircle2 className="h-3.5 w-3.5 mr-1 text-accent" /> Approve
+                          <CheckCircle2 className="h-3.5 w-3.5 mr-1 text-wine" /> Approve
                         </Button>
                         <Button
                           size="sm"
@@ -241,7 +241,7 @@ function Dashboard() {
                           disabled={mut.isPending}
                           onClick={() => mut.mutate({ id: r.id, status: "flagged" })}
                         >
-                          <Flag className="h-3.5 w-3.5 mr-1 text-wine" /> Flag
+                          <Flag className="h-3.5 w-3.5 mr-1 text-destructive" /> Flag
                         </Button>
                       </td>
                     </tr>
@@ -257,8 +257,8 @@ function Dashboard() {
   );
 }
 
-function Stat({ label, value, tone }: { label: string; value: number; tone?: "muted" | "accent" | "wine" }) {
-  const color = tone === "accent" ? "text-accent" : tone === "wine" ? "text-wine" : tone === "muted" ? "text-muted-foreground" : "text-gradient";
+function Stat({ label, value, tone }: { label: string; value: number; tone?: "muted" | "accent" | "wine" | "destructive" }) {
+  const color = tone === "accent" ? "text-accent" : tone === "wine" ? "text-wine" : tone === "destructive" ? "text-destructive" : tone === "muted" ? "text-muted-foreground" : "text-gradient";
   return (
     <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
       <div className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">{label}</div>
@@ -273,9 +273,9 @@ function Tag({ children }: { children: React.ReactNode }) {
 
 function StatusBadge({ status }: { status: "pending" | "approved" | "flagged" }) {
   const map = {
-    pending: { icon: Clock, cls: "bg-muted text-muted-foreground" },
-    approved: { icon: CheckCircle2, cls: "bg-accent/10 text-accent" },
-    flagged: { icon: Flag, cls: "bg-wine/10 text-wine" },
+    pending: { icon: Clock, cls: "bg-accent/10 text-accent" },
+    approved: { icon: CheckCircle2, cls: "bg-wine/10 text-wine" },
+    flagged: { icon: Flag, cls: "bg-destructive/10 text-destructive" },
   } as const;
   const Icon = map[status].icon;
   return (
