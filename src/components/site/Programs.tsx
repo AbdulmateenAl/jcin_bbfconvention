@@ -14,7 +14,7 @@ const days = [
     n: "02",
     title: "Main Convention, Investiture & After Party",
     date: "Saturday",
-    dress: "Aso-Oke & Formal",
+    dress: "White & Aso-Oke",
     desc: "Plenary, awards, the formal investiture of incoming leadership, and a celebration that runs into the night.",
     Icon: Crown,
     accent: "accent",

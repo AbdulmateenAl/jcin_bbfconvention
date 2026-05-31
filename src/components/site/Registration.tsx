@@ -65,8 +65,8 @@ export function Registration() {
     jci_member: false,
     jci_unilorin_member: false,
     purchasing_aso_oke: false,
-    attending_after_party: true,
-    attending_picnic: true,
+    attending_after_party: false,
+    attending_picnic: false,
   });
 
   const selectedConfig = FORM_CONFIG[form.jci_member ? "member" : "non-member"];
@@ -304,7 +304,7 @@ export function Registration() {
                 <div className="space-y-6">
                   <div>
                     <div className="text-xs uppercase tracking-[0.22em] text-wine">Pre-screening</div>
-                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member at the University of Ilorin?</h3>
+                    <h3 className="font-display text-4xl mt-3">Are you a JCIN University of Ilorin member?</h3>
                     <p className="mt-4 text-muted-foreground">
                       Confirm whether you are affiliated with JCIN UNILORIN before completing registration.
                     </p>
