@@ -22,9 +22,9 @@ export function Hero() {
             {CONVENTION.org}
           </div>
 
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[0.95] text-white">
+          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[0.95] text-transparent" style={{ WebkitTextStroke: '2px white', textShadow: '0 2px 24px rgba(0,0,0,0.6)' }}>
             <span className="block">TIMELESS IMPACT: </span>
-            <span className="block bg-gradient-to-r from-[#F4B400] via-[#0077C8] to-[#6CB33F] bg-clip-text text-transparent">
+            <span className="block" style={{ WebkitTextStroke: '2px #F4B400' }}>
               {CONVENTION.subtitle}
             </span>
           </h1>
