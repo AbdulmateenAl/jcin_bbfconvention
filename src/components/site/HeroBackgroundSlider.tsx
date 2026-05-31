@@ -230,7 +230,7 @@ export function HeroBackgroundSlider() {
         </div>
 
         <div className="flex items-center gap-2">
-          {SLIDE_PAIRS.map((_, index) => (
+          {Array.from({ length: slideCount }).map((_, index) => (
             <button
               key={index}
               type="button"
