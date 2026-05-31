@@ -23,8 +23,8 @@ export function Hero() {
           </div>
 
           <h1 className="font-display text-5xl sm:text-7xl md:text-8xl leading-[0.95]" style={{ textShadow: '0 2px 18px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6)' }}>
-            <span className="block text-white/60">TIMELESS IMPACT: </span>
-            <span className="block" style={{ color: 'rgba(244,180,0,0.65)' }}>
+            <span className="block text-white/80">TIMELESS IMPACT: </span>
+            <span className="block text-yellow-400/30 bg-linear-to-r from-yellow-400 to-yellow-600 bg-clip-text">
               {CONVENTION.subtitle}
             </span>
           </h1>
