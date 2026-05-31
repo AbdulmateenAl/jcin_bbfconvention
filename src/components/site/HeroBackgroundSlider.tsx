@@ -143,7 +143,7 @@ export function HeroBackgroundSlider() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="absolute inset-0 grid w-full min-h-full grid-cols-1 sm:grid-cols-2"
+          className="absolute inset-0 grid w-full min-h-full grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1"
         >
           <div
             className="relative h-full min-h-full overflow-hidden bg-cover bg-center bg-slate-950"
@@ -154,7 +154,7 @@ export function HeroBackgroundSlider() {
           </div>
 
           <div
-            className="relative hidden h-full min-h-full overflow-hidden sm:block bg-cover bg-center bg-slate-950"
+            className="relative h-full min-h-full overflow-hidden bg-cover bg-center bg-slate-950"
             style={{ backgroundImage: `url(${activeSlide.family})`, backgroundPosition: "center 30%" }}
             aria-label={activeSlide.altFamily}
           >
