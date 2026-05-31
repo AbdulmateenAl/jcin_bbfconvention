@@ -78,26 +78,45 @@ const slideVariants = {
 const clampIndex = (index: number, length: number) => (index + length) % length;
 
 export function HeroBackgroundSlider() {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // On mobile, flatten pairs into single-image slides alternating main/family
+  type MobileSlide = { url: string; alt: string };
+  const mobileSlides = React.useMemo<MobileSlide[]>(
+    () =>
+      SLIDE_PAIRS.flatMap((p) => [
+        { url: p.main, alt: p.altMain },
+        { url: p.family, alt: p.altFamily },
+      ]),
+    []
+  );
+
+  const slideCount = isMobile ? mobileSlides.length : SLIDE_PAIRS.length;
+
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [direction, setDirection] = React.useState(1);
   const timerRef = React.useRef<number | null>(null);
-  const slideCount = SLIDE_PAIRS.length;
 
-  if (slideCount === 0) {
-    return null;
-  }
+  React.useEffect(() => {
+    setActiveIndex(0);
+  }, [isMobile]);
 
   const resetAutoPlay = React.useCallback(() => {
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
     }
-
+    if (slideCount === 0) return;
     timerRef.current = window.setInterval(() => {
-      setActiveIndex((current) => {
-        const next = clampIndex(current + 1, slideCount);
-        setDirection(1);
-        return next;
-      });
+      setActiveIndex((current) => clampIndex(current + 1, slideCount));
+      setDirection(1);
     }, 5000);
   }, [slideCount]);
 
@@ -109,6 +128,10 @@ export function HeroBackgroundSlider() {
       }
     };
   }, [resetAutoPlay]);
+
+  if (slideCount === 0) {
+    return null;
+  }
 
   const handleNext = () => {
     setActiveIndex((current) => clampIndex(current + 1, slideCount));
@@ -131,37 +154,60 @@ export function HeroBackgroundSlider() {
     resetAutoPlay();
   };
 
-  const activeSlide = SLIDE_PAIRS[activeIndex];
+  const activeSlide = !isMobile ? SLIDE_PAIRS[activeIndex] : null;
+  const activeMobile = isMobile ? mobileSlides[activeIndex] : null;
+
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-slate-950">
       <AnimatePresence custom={direction} mode="wait">
-        <motion.div
-          key={activeIndex}
-          custom={direction}
-          variants={slideVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          className="absolute inset-0 grid w-full min-h-full grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1"
-        >
-          <div
-            className="relative h-full min-h-full overflow-hidden bg-cover bg-center bg-slate-950"
-            style={{ backgroundImage: `url(${activeSlide.main})`, backgroundPosition: "center 30%" }}
-            aria-label={activeSlide.altMain}
+        {isMobile && activeMobile ? (
+          <motion.div
+            key={`m-${activeIndex}`}
+            custom={direction}
+            variants={slideVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute inset-0"
           >
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
-          </div>
+            <div
+              className="relative h-full w-full overflow-hidden bg-cover bg-center bg-slate-950"
+              style={{ backgroundImage: `url(${activeMobile.url})`, backgroundPosition: "center 30%" }}
+              aria-label={activeMobile.alt}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
+            </div>
+          </motion.div>
+        ) : activeSlide ? (
+          <motion.div
+            key={`d-${activeIndex}`}
+            custom={direction}
+            variants={slideVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute inset-0 grid w-full min-h-full grid-cols-2"
+          >
+            <div
+              className="relative h-full min-h-full overflow-hidden bg-cover bg-center bg-slate-950"
+              style={{ backgroundImage: `url(${activeSlide.main})`, backgroundPosition: "center 30%" }}
+              aria-label={activeSlide.altMain}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
+            </div>
 
-          <div
-            className="relative h-full min-h-full overflow-hidden bg-cover bg-center bg-slate-950"
-            style={{ backgroundImage: `url(${activeSlide.family})`, backgroundPosition: "center 30%" }}
-            aria-label={activeSlide.altFamily}
-          >
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
-          </div>
-        </motion.div>
+            <div
+              className="relative h-full min-h-full overflow-hidden bg-cover bg-center bg-slate-950"
+              style={{ backgroundImage: `url(${activeSlide.family})`, backgroundPosition: "center 30%" }}
+              aria-label={activeSlide.altFamily}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent" />
+            </div>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
+
 
       <div className="absolute inset-x-0 bottom-6 z-20 flex flex-wrap items-center justify-center gap-3 px-4 sm:justify-between">
         <div className="items-center gap-2 rounded-full border border-white/15 bg-slate-950/70 px-2 py-1 backdrop-blur-sm flex">
@@ -184,7 +230,7 @@ export function HeroBackgroundSlider() {
         </div>
 
         <div className="flex items-center gap-2">
-          {SLIDE_PAIRS.map((_, index) => (
+          {Array.from({ length: slideCount }).map((_, index) => (
             <button
               key={index}
               type="button"
