@@ -24,7 +24,7 @@ export const CONVENTION = {
       { label: "Men Aso-Oke", amount: "₦1,500" },
     ],
   },
-  whatsappGroupUrl: "https://chat.whatsapp.com/PLACEHOLDER",
+  whatsappGroupUrl: "https://chat.whatsapp.com/KKLpwoCtWw3I2HCZfSSRdh",
   whatsappSupport: "2348000000000", // wa.me number
   chairpersons: [
     { name: "David Obi", role: "Chairperson", phone: "+234 903 722 0596", email: "obidavid606@gmail.com" },
