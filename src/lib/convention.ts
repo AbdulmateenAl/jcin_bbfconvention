@@ -25,7 +25,7 @@ export const CONVENTION = {
     ],
   },
   whatsappGroupUrl: "https://chat.whatsapp.com/KKLpwoCtWw3I2HCZfSSRdh",
-  whatsappSupport: "2348000000000", // wa.me number
+  whatsappSupport: "https://wa.me/+2349150678308", // wa.me number
   chairpersons: [
     { name: "David Obi", role: "Chairperson", phone: "+234 903 722 0596", email: "obidavid606@gmail.com" },
     { name: "Gege Elizabeth", role: "Chairperson", phone: "+234 907 543 8956", email: "elizabethgege126@gmail.com" },
