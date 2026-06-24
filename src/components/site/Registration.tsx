@@ -272,7 +272,7 @@ export function Registration() {
                 <div className="space-y-6">
                   <div>
                     <div className="text-xs uppercase tracking-[0.22em] text-wine">Pre-screening</div>
-                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member?</h3>
+                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member?<span className="text-wine ml-1">*</span></h3>
                     <p className="mt-4 text-muted-foreground">
                       Confirm your JCIN membership status before continuing to the next step.
                     </p>
