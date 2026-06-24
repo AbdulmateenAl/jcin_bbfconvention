@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import { checkEmailExists } from "@/lib/registrations.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -133,6 +134,13 @@ export function Registration() {
 
     setSubmitting(true);
     try {
+      const dup = await checkEmailExists({ data: { email: parsed.data.email } });
+      if (dup.exists) {
+        toast.error("This email has already registered for the convention.");
+        setSubmitting(false);
+        return;
+      }
+
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
       const safe = parsed.data.full_name.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40);
       const path = `${new Date().getFullYear()}/${Date.now()}-${safe}.${ext}`;
@@ -264,7 +272,7 @@ export function Registration() {
                 <div className="space-y-6">
                   <div>
                     <div className="text-xs uppercase tracking-[0.22em] text-wine">Pre-screening</div>
-                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member?</h3>
+                    <h3 className="font-display text-4xl mt-3">Are you a JCIN member?<span className="text-wine ml-1">*</span></h3>
                     <p className="mt-4 text-muted-foreground">
                       Confirm your JCIN membership status before continuing to the next step.
                     </p>
@@ -304,7 +312,7 @@ export function Registration() {
                 <div className="space-y-6">
                   <div>
                     <div className="text-xs uppercase tracking-[0.22em] text-wine">Pre-screening</div>
-                    <h3 className="font-display text-4xl mt-3">Are you a JCIN University of Ilorin member?</h3>
+                    <h3 className="font-display text-4xl mt-3">Are you a JCIN University of Ilorin member?<span className="text-wine ml-1">*</span></h3>
                     <p className="mt-4 text-muted-foreground">
                       Confirm whether you are affiliated with JCIN UNILORIN before completing registration.
                     </p>
@@ -425,7 +433,7 @@ export function Registration() {
                   </Field>
 
                   <div>
-                    <Label className="text-xs uppercase tracking-wider text-muted-foreground">Payment receipt</Label>
+                    <Label className="text-xs uppercase tracking-wider text-muted-foreground">Payment receipt<span className="text-wine ml-1">*</span></Label>
                     <label className="mt-2 flex items-center gap-3 rounded-2xl border border-dashed border-border bg-background/60 p-4 cursor-pointer hover:border-accent transition">
                       <Upload className="h-5 w-5 text-accent" />
                       <div className="flex-1 text-sm">

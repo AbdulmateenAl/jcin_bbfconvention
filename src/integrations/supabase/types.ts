@@ -104,6 +104,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      registration_email_exists: { Args: { _email: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "user"
