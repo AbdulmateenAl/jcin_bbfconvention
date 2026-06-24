@@ -433,7 +433,7 @@ export function Registration() {
                   </Field>
 
                   <div>
-                    <Label className="text-xs uppercase tracking-wider text-muted-foreground">Payment receipt</Label>
+                    <Label className="text-xs uppercase tracking-wider text-muted-foreground">Payment receipt<span className="text-wine ml-1">*</span></Label>
                     <label className="mt-2 flex items-center gap-3 rounded-2xl border border-dashed border-border bg-background/60 p-4 cursor-pointer hover:border-accent transition">
                       <Upload className="h-5 w-5 text-accent" />
                       <div className="flex-1 text-sm">
