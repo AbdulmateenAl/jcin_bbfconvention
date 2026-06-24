@@ -134,6 +134,13 @@ export function Registration() {
 
     setSubmitting(true);
     try {
+      const dup = await checkEmailExists({ data: { email: parsed.data.email } });
+      if (dup.exists) {
+        toast.error("This email has already registered for the convention.");
+        setSubmitting(false);
+        return;
+      }
+
       const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
       const safe = parsed.data.full_name.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40);
       const path = `${new Date().getFullYear()}/${Date.now()}-${safe}.${ext}`;
