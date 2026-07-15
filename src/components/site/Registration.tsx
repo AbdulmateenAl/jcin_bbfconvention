@@ -88,7 +88,7 @@ export function Registration() {
 
   useEffect(() => {
     updatePanelHeight();
-  }, [step, screening1, screening2, form.full_name, form.email, form.phone, form.family_group, form.food_option, form.purchasing_aso_oke, form.attending_after_party, form.attending_picnic, file]);
+  }, [step, screening1, screening2, form.full_name, form.email, form.phone, form.family_group, form.food_option, form.attending_after_party, file]);
 
   const handleNext = () => {
     if (step === "screening1") {
