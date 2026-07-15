@@ -9,10 +9,10 @@ export const CONVENTION = {
   localTheme: "TIME",
   nationalTheme: "Amplify",
   // Placeholder date — confirm with chairpersons
-  startDate: "2026-07-18T18:00:00+01:00",
+  startDate: "2026-07-18T11:00:00+01:00",
   endDate: "2026-07-19T20:00:00+01:00",
   dateLabel: "July 17 – 19, 2026",
-  venue: "Multi-purpose Hall, University of Ilorin",
+  venue: "Rotana Hotels, Fate Road, Ilorin, Kwara State",
   city: "Ilorin, Kwara State",
   payment: {
     bankName: "LOTUS Bank",
@@ -20,8 +20,6 @@ export const CONVENTION = {
     accountNumber: "1010450735",
     pricing: [
       { label: "Registration", amount: "₦6,000" },
-      { label: "Ladies Aso-Oke", amount: "₦2,500" },
-      { label: "Men Aso-Oke", amount: "₦1,500" },
     ],
   },
   whatsappGroupUrl: "https://chat.whatsapp.com/KKLpwoCtWw3I2HCZfSSRdh",
