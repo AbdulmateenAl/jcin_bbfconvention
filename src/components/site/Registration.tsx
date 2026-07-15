@@ -65,9 +65,7 @@ export function Registration() {
     food_option: "",
     jci_member: false,
     jci_unilorin_member: false,
-    purchasing_aso_oke: false,
     attending_after_party: false,
-    attending_picnic: false,
   });
 
   const selectedConfig = FORM_CONFIG[form.jci_member ? "member" : "non-member"];
@@ -90,7 +88,7 @@ export function Registration() {
 
   useEffect(() => {
     updatePanelHeight();
-  }, [step, screening1, screening2, form.full_name, form.email, form.phone, form.family_group, form.food_option, form.purchasing_aso_oke, form.attending_after_party, form.attending_picnic, file]);
+  }, [step, screening1, screening2, form.full_name, form.email, form.phone, form.family_group, form.food_option, form.attending_after_party, file]);
 
   const handleNext = () => {
     if (step === "screening1") {
@@ -159,9 +157,7 @@ export function Registration() {
         food_option: parsed.data.food_option,
         jci_member: form.jci_member,
         is_unilorin_member: form.jci_unilorin_member,
-        purchasing_aso_oke: form.purchasing_aso_oke,
         attending_after_party: form.attending_after_party,
-        attending_picnic: form.attending_picnic,
         receipt_path: up.data.path,
       });
       if (ins.error) throw ins.error;
@@ -398,21 +394,12 @@ export function Registration() {
 
                   <div className="grid sm:grid-cols-2 gap-3 pt-2">
                     <Toggle
-                      checked={form.purchasing_aso_oke}
-                      onCheckedChange={(v) => setForm({ ...form, purchasing_aso_oke: v })}
-                      label="I want the Aso-Oke add-on"
-                    />
-                    <Toggle
                       checked={form.attending_after_party}
                       onCheckedChange={(v) => setForm({ ...form, attending_after_party: v })}
                       label="Attending the After Party"
                     />
-                    <Toggle
-                      checked={form.attending_picnic}
-                      onCheckedChange={(v) => setForm({ ...form, attending_picnic: v })}
-                      label="Attending the Recovery Picnic"
-                    />
                   </div>
+
 
                   <Field id="food_option" label="Food option" required>
                     <RadioGroup

@@ -1,39 +1,18 @@
-## Goal
-Prevent duplicate registrations by email, and mark required fields with asterisks in the registration form.
-
 ## Changes
 
-### 1. Duplicate-email check (server function)
-Create `src/lib/registrations.functions.ts` exporting `checkEmailExists` as a `createServerFn` that:
-- Accepts `{ email: string }` (Zod-validated, lowercased/trimmed).
-- Uses the server publishable client (no auth needed) to query `registrations` for a row matching the email.
-- Returns `{ exists: boolean }`.
+### 1. `src/lib/convention.ts`
+- `venue`: `"Rotana Hotels, Fate Road, Ilorin, Kwara State"` (drop `city` usage if it duplicates; keep `city` field as-is unless it appears alongside venue).
+- `startDate`: `"2026-07-18T11:00:00+01:00"`.
+- `payment.pricing`: keep only `{ label: "Registration", amount: "₦6,000" }`. Remove Ladies/Men Aso-Oke rows.
 
-Add a narrow RLS policy via migration so anon can run this existence check safely:
-- `CREATE POLICY "Anyone can check email exists" ON public.registrations FOR SELECT TO anon, authenticated USING (true);`
+### 2. `src/components/site/Registration.tsx`
+- Remove the "Purchasing Aso-Oke" field/checkbox and its Zod schema entry.
+- Remove the "Attending Recovery Picnic" field/checkbox and its Zod schema entry.
+- Remove these from the insert payload sent to the `registrations` table (leave the DB columns intact; simply stop writing to them — existing rows and admin view unaffected).
+- Remove any conditional UI (e.g. Aso-Oke size/type selectors) tied to these fields.
 
-Tradeoff: this exposes that an email is registered. Acceptable for a public event signup, and only the existence check is used; no PII is returned to the client (server fn returns only a boolean).
+### 3. Anywhere pricing/aso-oke/picnic is displayed on the site
+- Audit `About.tsx`, `Programs.tsx`, `Timeline.tsx`, `Theme.tsx`, `Footer.tsx` for mentions of Aso-Oke, recovery picnic, or the removed pricing lines and remove/update them so copy stays consistent with the flat ₦6,000 fee.
 
-Alternative (more private): skip the policy and instead create a SECURITY DEFINER SQL function `public.registration_email_exists(_email text) RETURNS boolean` and grant EXECUTE to anon/authenticated. The server fn calls it via `.rpc()`. This keeps row data hidden. **Recommended** — I'll use this approach.
-
-So the migration will:
-- Create `public.registration_email_exists(_email text)` SECURITY DEFINER, returns boolean.
-- `GRANT EXECUTE` to `anon, authenticated`.
-
-### 2. Wire into Registration submit flow
-In `src/components/site/Registration.tsx` `onSubmit`:
-- After Zod validation, before uploading the receipt, call `checkEmailExists`.
-- If `exists` → `toast.error("This email has already registered for the convention.")`, set a `alreadyRegistered` state, and stop (no upload, no insert).
-- Optionally render an inline message under the email field when `alreadyRegistered` is true; clear it when the email value changes.
-
-### 3. Required-field asterisks
-The `Field` helper already supports a `required` prop that renders a wine-colored asterisk. Currently set on: full_name, email, phone, food_option. Also add `required` to:
-- The "Payment receipt" label (custom, not using `Field`) — add the asterisk inline.
-- Both screening question headings ("Are you a JCIN member?" and "Are you a JCIN UNILORIN member?") — append a small required asterisk near the heading or label since the Next button is disabled until answered.
-
-`family_group` stays optional (no asterisk).
-
-## Technical notes
-- Server fn lives outside `src/server/`; uses publishable-key client inside the handler.
-- No change to `registrations` table schema or existing insert policy.
-- Email comparison is case-insensitive (`lower(email) = lower(_email)` inside the SQL function).
+## Out of scope
+- No DB migration — `purchasing_aso_oke` and `attending_picnic` columns remain (harmless, nullable/default false). Admin dashboard continues to render them for historical rows.
