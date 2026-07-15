@@ -394,21 +394,12 @@ export function Registration() {
 
                   <div className="grid sm:grid-cols-2 gap-3 pt-2">
                     <Toggle
-                      checked={form.purchasing_aso_oke}
-                      onCheckedChange={(v) => setForm({ ...form, purchasing_aso_oke: v })}
-                      label="I want the Aso-Oke add-on"
-                    />
-                    <Toggle
                       checked={form.attending_after_party}
                       onCheckedChange={(v) => setForm({ ...form, attending_after_party: v })}
                       label="Attending the After Party"
                     />
-                    <Toggle
-                      checked={form.attending_picnic}
-                      onCheckedChange={(v) => setForm({ ...form, attending_picnic: v })}
-                      label="Attending the Recovery Picnic"
-                    />
                   </div>
+
 
                   <Field id="food_option" label="Food option" required>
                     <RadioGroup
