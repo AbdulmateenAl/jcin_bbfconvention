@@ -65,9 +65,7 @@ export function Registration() {
     food_option: "",
     jci_member: false,
     jci_unilorin_member: false,
-    purchasing_aso_oke: false,
     attending_after_party: false,
-    attending_picnic: false,
   });
 
   const selectedConfig = FORM_CONFIG[form.jci_member ? "member" : "non-member"];
