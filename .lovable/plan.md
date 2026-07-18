@@ -1,18 +1,17 @@
 ## Changes
 
-### 1. `src/lib/convention.ts`
-- `venue`: `"Rotana Hotels, Fate Road, Ilorin, Kwara State"` (drop `city` usage if it duplicates; keep `city` field as-is unless it appears alongside venue).
-- `startDate`: `"2026-07-18T11:00:00+01:00"`.
-- `payment.pricing`: keep only `{ label: "Registration", amount: "₦6,000" }`. Remove Ladies/Men Aso-Oke rows.
+### 1. New route `src/routes/program.tsx`
+- TanStack file route at `/program`.
+- Adds `head()` with title "Program of Events — BBFCONVENTION" and matching description/og tags.
+- Renders `<CornerLogos />`, a page header ("Program of Events", "11:00 AM – 6:00 PM, Saturday July 18, 2026"), the updated `<Timeline />`, a back-to-home link, and `<Footer />`.
 
-### 2. `src/components/site/Registration.tsx`
-- Remove the "Purchasing Aso-Oke" field/checkbox and its Zod schema entry.
-- Remove the "Attending Recovery Picnic" field/checkbox and its Zod schema entry.
-- Remove these from the insert payload sent to the `registrations` table (leave the DB columns intact; simply stop writing to them — existing rows and admin view unaffected).
-- Remove any conditional UI (e.g. Aso-Oke size/type selectors) tied to these fields.
+### 2. `src/components/site/Timeline.tsx`
+- Replace the `events` array with the full 19-entry list from the user, keeping the existing time + title structure (`time` shown as start time, `title` as the activity label).
+- Keep current visual styling (left rail, gradient time text, cards). No behavior change beyond the new data and heading tweak so it works standalone on the new page.
 
-### 3. Anywhere pricing/aso-oke/picnic is displayed on the site
-- Audit `About.tsx`, `Programs.tsx`, `Timeline.tsx`, `Theme.tsx`, `Footer.tsx` for mentions of Aso-Oke, recovery picnic, or the removed pricing lines and remove/update them so copy stays consistent with the flat ₦6,000 fee.
+### 3. `src/components/site/Hero.tsx` (line 55)
+- Change the "View Program" anchor from `<a href="#program">` to a TanStack `<Link to="/program">` so the button navigates to the new page instead of scrolling to the on-page Programs section.
 
 ## Out of scope
-- No DB migration — `purchasing_aso_oke` and `attending_picnic` columns remain (harmless, nullable/default false). Admin dashboard continues to render them for historical rows.
+- `Programs.tsx` (the 3-day overview cards) stays on the home page unchanged.
+- No changes to routing config — `src/routeTree.gen.ts` regenerates automatically from the new route file.
