@@ -3,6 +3,7 @@ import { CONVENTION } from "@/lib/convention";
 import { Countdown } from "./Countdown";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowDown } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { HeroBackgroundSlider } from "./HeroBackgroundSlider";
 
 export function Hero() {
@@ -52,7 +53,7 @@ export function Hero() {
               <a href="/register">Register Now</a>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/30 text-black hover:border-white hover:bg-white/10">
-              <a href="#program">View Program</a>
+              <Link to="/program">View Program</Link>
             </Button>
           </div>
           </div>
